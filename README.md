@@ -28,6 +28,10 @@ Cell Decomposition using Naiive Strategy:-
 All the edges are stored in all_edges as structure array,each  element containing the initial and final coordinate points.
 A ployshape(pygon) is made as a configuration space minus obstacle.
 A loop is started moving through the X array (loop1).
+Below picture show the Edges of a sample input:
+<p align="center">
+  <img src="https://github.com/SujitJustineBarwa/Cell-Decomposition-Algorithm-for-Robot-Motion-Planning/blob/main/Images/Edges%20graph.png" />
+</p>
 
 **a) Collecting the intersection points :**
 A  2nd loop starts moving through all_edges to check the edges intersecting vertical extension 
@@ -56,10 +60,13 @@ This table has some internal operations to do in the following sequence :
 It should be kept in mind that the from Temp_two cells can form simlatenously.
 The picture below depicts the this case.
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SujitJustineBarwa/Robot-Motion-Planning-with-Potential-Field-Approach/main/Images/img2.PNG" />
+  <img src="https://github.com/SujitJustineBarwa/Cell-Decomposition-Algorithm-for-Robot-Motion-Planning/blob/main/Images/img3.PNG" />
 </p>
+Let the point in red circle be x7,y7 so the upper blue point will be x7,y_upper and below would be x7,y_down.Next lets say the green point where the 3 lines are meeting which is actually vertex of the obstacle be x4,y4 and the upper green point would be x4,y_upper(Note : x4,y_upper and x7,y_upper lies in the same edge).Same with the maroon circles,Assumed x6,y6 and x6,y_down.
+
+\
      	 
-**Sample Temp iteration 1**
+**Step 1**
 First the table is sorted on the basis of x column.
 Edges of first two rows are searched on the table and respective X and Y Co-ordinates are transferred to cell_vertices array .
 
@@ -72,7 +79,7 @@ Edges of first two rows are searched on the table and respective X and Y Co-ordi
 </tr>
 <tr style="height: 25px;">
 <td style="width: 167.683px; height: 25px;">&nbsp;x4</td>
-<td style="width: 403.417px; height: 25px;">&nbsp;y_upper</td>
+<td style="width: 403.417px; height: 25px;">&nbsp;y4_upper</td>
 <td style="width: 224.1px; height: 25px;">&nbsp;e2</td>
 </tr>
 <tr style="height: 25px;">
@@ -87,7 +94,7 @@ Edges of first two rows are searched on the table and respective X and Y Co-ordi
 </tr>
 <tr style="height: 25.9333px;">
 <td style="width: 167.683px; height: 25.9333px;">&nbsp;x6</td>
-<td style="width: 403.417px; height: 25.9333px;">&nbsp;y_down</td>
+<td style="width: 403.417px; height: 25.9333px;">&nbsp;y6_down</td>
 <td style="width: 224.1px; height: 25.9333px;">&nbsp;e12</td>
 </tr>
 <tr style="height: 25px;">
@@ -102,12 +109,12 @@ Edges of first two rows are searched on the table and respective X and Y Co-ordi
 </tr>
 <tr style="height: 25px;">
 <td style="width: 167.683px; height: 25px;">&nbsp;x7</td>
-<td style="width: 403.417px; height: 25px;">&nbsp;y_upper</td>
+<td style="width: 403.417px; height: 25px;">&nbsp;y7_upper</td>
 <td style="width: 224.1px; height: 25px;">&nbsp;e2</td>
 </tr>
 <tr style="height: 24px;">
 <td style="width: 167.683px; height: 24px;">&nbsp;x7</td>
-<td style="width: 403.417px; height: 24px;">&nbsp;y_down</td>
+<td style="width: 403.417px; height: 24px;">&nbsp;y7_down</td>
 <td style="width: 224.1px; height: 24px;">e12</td>
 </tr>
 </tbody>
@@ -123,7 +130,7 @@ Edges of first two rows are searched on the table and respective X and Y Co-ordi
 <tbody>
 <tr>
 <td style="width: 171.333px;">x4</td>
-<td style="width: 455.317px;">y_upper</td>
+<td style="width: 455.317px;">y4_upper</td>
 <td style="width: 177.55px;">e2</td>
 </tr>
 <tr>
@@ -138,7 +145,7 @@ Edges of first two rows are searched on the table and respective X and Y Co-ordi
 </tr>
 <tr>
 <td style="width: 171.333px;">x7</td>
-<td style="width: 455.317px;">y_upper</td>
+<td style="width: 455.317px;">y7_upper</td>
 <td style="width: 177.55px;">e2</td>
 </tr>
 </tbody>
@@ -152,7 +159,7 @@ Cell 2:
 <tbody>
 <tr>
 <td style="width: 171.333px;">x6</td>
-<td style="width: 455.317px;">y_upper</td>
+<td style="width: 455.317px;">y6_upper</td>
 <td style="width: 177.55px;">e7</td>
 </tr>
 <tr>
@@ -167,26 +174,15 @@ Cell 2:
 </tr>
 <tr>
 <td style="width: 171.333px;">x7</td>
-<td style="width: 455.317px;">y_down</td>
+<td style="width: 455.317px;">y7_down</td>
 <td style="width: 177.55px;">e12</td>
 </tr>
 </tbody>
 </table>
 <p>&nbsp;</p>
-**Sample Temp iteration 2**
+
+**Step 2**
 
 If cell _vertices array length is 4 they are transferred to a cells array and cell_vertices is reset.
 Cells array is datatype cell which stores 4 coordinates at each of its index.
 
-**Task 3 :**  Improvement using Sweep Strategy
-All the points are same as above except for step a.
-
-	Step A modified
-All the Edges intersecting line x = x1 are recorded and added to the Table L in the tree like fashion. (In the first condition of slide L5 pg.7 of Ref[1]).
-A jumper table is kept to record the deleted or changed row in the table L.
-(In the last 3 condition of slide L5 pg.7 of Ref[1]).
-The jumper and L is added to L_duplicate.
-The Intersection point are found out with all the edges in L_duplicate and stored in T as previous format.
-
-
-Note :  A Problem has been worked out below to have an idea of how T_Manager works after each time we move to new x.The process mentioned above are applied.If the elimination is due to common edges than they are transferred to Temp_T.
