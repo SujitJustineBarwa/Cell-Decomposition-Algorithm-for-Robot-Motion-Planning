@@ -65,6 +65,7 @@ The picture below depicts the this case.
 Let the point in red circle be x7,y7 so the upper blue point will be x7,y_upper and below would be x7,y_down.Next lets say the green point where the 3 lines are meeting which is actually vertex of the obstacle be x4,y4 and the upper green point would be x4,y_upper(Note : x4,y_upper and x7,y_upper lies in the same edge).Same with the maroon circles,Assumed x6,y6 and x6,y_down.
 
 \
+The Following 2 steps are followed to performing the segregation completely :- 
      	 
 **Step 1**
 First the table is sorted on the basis of x column.
